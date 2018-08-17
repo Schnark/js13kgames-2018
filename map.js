@@ -29,12 +29,11 @@ Map.prototype.allDone = function () {
 
 Map.prototype.draw = function (robot) {
 	var pos = robot.getPos();
-	//TODO
-	document.getElementById('map').textContent = this.grid.map(function (line, y) {
+	display.map(this.grid.map(function (line, y) {
 		var str = line.join('');
 		if (y === pos[1]) {
 			str = str.slice(0, pos[0]) + ['^', '>', 'v', '<'][pos[2]] + str.slice(pos[0] + 1);
 		}
 		return str;
-	}).join('\n');
+	}).join('\n'));
 };

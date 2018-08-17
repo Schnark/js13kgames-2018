@@ -33,10 +33,12 @@ Robot.prototype.move = function () {
 	}
 	this.x = newPos[0];
 	this.y = newPos[1];
+	sound.play('move');
 };
 
 Robot.prototype.turn = function (dir) {
 	this.dir = (this.dir + dir + 4) % 4;
+	sound.play('turn');
 };
 
 Robot.prototype.take = function () {
@@ -51,6 +53,7 @@ Robot.prototype.take = function () {
 	}
 	this.item = type;
 	this.map.setType(pos[0], pos[1], ' ');
+	sound.play('take');
 };
 
 Robot.prototype.drop = function () {
@@ -65,6 +68,7 @@ Robot.prototype.drop = function () {
 	}
 	this.item = '';
 	this.map.setType(pos[0], pos[1], '*');
+	sound.play('drop');
 };
 
 Robot.prototype.step = function () {
