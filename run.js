@@ -7,6 +7,7 @@ function Run (mapStr, codeStr, onend) {
 	this.onend = onend;
 	this.running = true;
 	this.done = false;
+	this.pause = 1000;
 }
 
 Run.prototype.showError = function (e) {
@@ -38,17 +39,27 @@ Run.prototype.step = function () {
 	}
 	this.map.draw(this.robot);
 	this.showCode();
+	if (!this.running) {
+		this.onend(this.done);
+	} else {
+		this.timeoutId = setTimeout(this.step.bind(this), this.pause);
+	}
 };
 
-Run.prototype.run = function (pause) {
+Run.prototype.cancel = function () {
+	if (this.running) {
+		clearTimeout(this.timeoutId);
+		this.onend(false);
+	}
+};
+
+Run.prototype.setPause = function (pause) {
+	this.pause = pause;
+};
+
+Run.prototype.run = function () {
 	this.showError('');
 	this.map.draw(this.robot);
 	this.showCode();
-	var interval = setInterval(function () {
-		this.step();
-		if (!this.running) {
-			clearInterval(interval);
-			this.onend(this.done);
-		}
-	}.bind(this), pause);
+	this.step();
 };

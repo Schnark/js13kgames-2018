@@ -1,14 +1,38 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+<link href="style.css" rel="stylesheet">
+<script src="storage.js" defer></script>
 <script src="display.js" defer></script>
 <script src="sound.js" defer></script>
+<script src="info.js" defer></script>
+<script src="code-input.js" defer></script>
 <script src="map.js" defer></script>
 <script src="robot.js" defer></script>
 <script src="run.js" defer></script>
+<script src="level.js" defer></script>
+<script src="level-collection.js" defer></script>
 <script src="game.js" defer></script>
+<header>
+<button id="abort-button" hidden>Back</button>
+<span>
+<input type="checkbox" id="sound-checkbox">
+<label for="sound-checkbox">Sound</label>
+</span>
+<h1 id="title"></h1>
+</header>
+<div id="level-menu">
+</div>
+<div id="level-wrapper" hidden>
 <pre id="map"></pre>
 <div id="code"></div>
 <div id="error"></div>
-<input id="code-input" placeholder=",&lt;&lt;6_).">
+<div id="code-input"></div>
 <button id="run-button">Go</button>
+<button id="cancel-button">Cancel</button>
 <button id="reset-button">Reset</button>
+<input id="pause-input" type="range" min="0" max="10" value="3">
+</div>
+<footer>
+<button id="reset-scores">Reset scores</button>
+<button id="reset-info">Reset info</button>
+</footer>

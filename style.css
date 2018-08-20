@@ -1,0 +1,41 @@
+html {
+	font-family: sans-serif;
+}
+
+header {
+	background-color: #060;
+	color: white;
+}
+
+header button {
+	float: left;
+}
+
+header h1 {
+	margin-left: 3em;
+	margin-right: 3em;
+	font-size: 150%;
+}
+
+header span {
+	float: right;
+	padding-right: 1em;
+}
+
+footer {
+	background-color: black;
+	color: white;
+}
+
+#level-menu .locked::after {
+	content: " (locked)";
+}
+#level-menu .solved::after {
+	content: " (solved)";
+}
+#level-menu .solved-1::after {
+	content: " (solved-1)";
+}
+#level-menu .solved-2::after {
+	content: " (solved-2)";
+}

@@ -2,6 +2,17 @@ function htmlEscape (str) {
 	return str.replace(/</g, '&lt;');
 }
 
+function displayTitle (title) {
+	document.getElementById('title').textContent = title;
+}
+
+function displayInfo (info, callback) {
+	alert(info);
+	if (callback) {
+		callback();
+	}
+}
+
 function displayError (error) {
 	document.getElementById('error').textContent = error;
 }
@@ -18,6 +29,8 @@ function displayCode (code, highlight) {
 }
 
 var display = {
+	title: displayTitle,
+	info: displayInfo,
 	error: displayError,
 	map: displayMap,
 	code: displayCode

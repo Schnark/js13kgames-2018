@@ -1,28 +1,33 @@
-var mapStr = 'A      >a', runButton, resetButton;
+var codeInput, soundCheckbox, levels;
 
-function init () {
-	runButton = document.getElementById('run-button');
-	resetButton = document.getElementById('reset-button')
-	runButton.addEventListener('click', start);
-	resetButton.addEventListener('click', reset);
-	reset();
+codeInput = new CodeInput();
+
+soundCheckbox = document.getElementById('sound-checkbox');
+
+function onMuteUnmute () {
+	var checked = soundCheckbox.checked;
+	sound.setMuted(!checked);
+	storage.set('sound', checked);
 }
 
-function start () {
-	var run = new Run(mapStr, document.getElementById('code-input').value, function (done) {
-		alert(done);
-		resetButton.disabled = false;
-	});
-	run.run(1000);
-	runButton.disabled = true;
-}
+soundCheckbox.checked = storage.get('sound', true);
+soundCheckbox.addEventListener('change', onMuteUnmute);
+onMuteUnmute();
 
-function reset () {
-	display.map(mapStr);
-	display.error('');
-	display.code('');
-	runButton.disabled = false;
-	resetButton.disabled = true;
-}
+levels = new LevelCollection([
+	{title: 'Tutorial', info: 0, levels: [
+		{title: 'Tutorial 1', map: 'Aa<', top: 3, info: 1},
+		{title: 'Tutorial 2', map: 'A      >a', top: 7, req: 1, info: 2}, //TODO top: 6 falls ) nicht zählt
+		{title: 'Tutorial 3', map: 'A<a\nB b', req: 2}
+	]},
+	{title: 'Foo', req: 3, levels: [
+		{title: 'Foo', map: 'A<a\nB b\nC c'}
+	]}
+]);
 
-init();
+levels.init();
+
+document.getElementById('reset-scores').addEventListener('click', levels.clearScores.bind(levels));
+document.getElementById('reset-info').addEventListener('click', function () {
+	storage.remove('info');
+});
