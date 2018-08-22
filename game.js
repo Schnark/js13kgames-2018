@@ -14,7 +14,7 @@ soundCheckbox.checked = storage.get('sound', true);
 soundCheckbox.addEventListener('change', onMuteUnmute);
 onMuteUnmute();
 
-levels = new LevelCollection([
+levels = [
 	{title: 'Tutorial', info: 0, levels: [
 		{title: 'Tutorial 1', map: 'Aa<', top: 3, info: 1},
 		{title: 'Tutorial 2', map: 'A      >a', top: 7, req: 1, info: 2}, //TODO top: 6 falls ) nicht zählt
@@ -23,7 +23,19 @@ levels = new LevelCollection([
 	{title: 'Foo', req: 3, levels: [
 		{title: 'Foo', map: 'A<a\nB b\nC c'}
 	]}
-]);
+];
+
+/*
+if (location.hash) {
+	levels.push({
+		title: 'Bonus', levels: [
+			{title: 'Bonus', map: decodeURIComponent(location.hash.slice(1))} //TODO
+		]
+	});
+}
+*/
+
+levels = new LevelCollection(levels);
 
 levels.init();
 

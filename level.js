@@ -43,9 +43,10 @@ Level.prototype.show = function () {
 
 Level.prototype.end = function (result) {
 	this.unbind();
-	this.wrapper.hidden = true;
-	this.abortButton.hidden = true;
-	this.onend(result);
+	this.onend(result, function () {
+		this.wrapper.hidden = true;
+		this.abortButton.hidden = true;
+	}.bind(this));
 };
 
 Level.prototype.onAbort = function () {
@@ -57,11 +58,14 @@ Level.prototype.onStart = function () {
 	this.run = new Run(this.mapStr, input, function (done) {
 		this.cancelButton.disabled = true;
 		this.resetButton.disabled = false;
+		this.abortButton.disabled = false;
 		if (done) {
 			this.end(input.length); //TODO
 		}
 	}.bind(this));
 	this.onUpdatePause();
+	codeInput.disable();
+	this.abortButton.disabled = true;
 	this.runButton.disabled = true;
 	this.cancelButton.disabled = false;
 	this.run.run();
@@ -70,15 +74,18 @@ Level.prototype.onStart = function () {
 Level.prototype.onCancel = function () {
 	this.run.cancel();
 	this.cancelButton.disabled = true;
+	this.abortButton.disabled = false;
 };
 
 Level.prototype.onReset = function () {
 	display.map(this.mapStr);
 	display.error('');
 	display.code('');
+	this.abortButton.disabled = false;
 	this.runButton.disabled = false;
 	this.cancelButton.disabled = true;
 	this.resetButton.disabled = true;
+	codeInput.enable();
 };
 
 Level.prototype.onUpdatePause = function () {

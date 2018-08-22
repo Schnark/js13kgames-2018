@@ -1,10 +1,72 @@
-html {
+html,
+body {
 	font-family: sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+svg {
+	width: 1.5rem;
+	height: 1.5rem;
+}
+
+svg.highlight {
+	background-color: yellow;
+}
+
+#code-2,
+#code-3,
+#code-4,
+#code-5,
+#code-6,
+#code-7,
+#code-8,
+#code-9,
+#code-repeat {
+	fill: orange;
+}
+
+#code-go,
+#code-left,
+#code-right {
+	fill: green;
+}
+
+#code-up,
+#code-down {
+	fill: blue;
+}
+
+.button:not([hidden]) {
+	display: inline-block;
+	border: thin solid;
+	border-radius: 4px;
+	padding: 0.75rem;
+	margin: 0.75rem;
+	height: 3rem;
+	width: 3rem;
+	cursor: pointer;
+	background: white;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.button:disabled {
+	fill: #aaa;
+	cursor: default;
 }
 
 header {
-	background-color: #060;
+	background-color: #48a;
 	color: white;
+	fill: white;
+	height: 3rem;
+}
+
+header .button:not([hidden]) {
+	border: none;
+	margin: 0;
+	background-color: transparent;
 }
 
 header button {
@@ -12,14 +74,42 @@ header button {
 }
 
 header h1 {
-	margin-left: 3em;
-	margin-right: 3em;
+	margin: 0 3rem;
 	font-size: 150%;
+	line-height: 2;
 }
 
-header span {
+header > span {
 	float: right;
 	padding-right: 1em;
+}
+
+#sound-checkbox {
+	display: none;
+}
+
+#sound-checkbox:checked ~ label .off {
+	display: none;
+}
+
+#sound-checkbox:not(:checked) ~ label .on {
+	display: none;
+}
+
+#level-menu,
+#level-wrapper {
+	margin: 1rem;
+}
+
+#map table {
+	border-collapse: collapse;
+}
+
+#map table td {
+	border: thin solid;
+	padding: 0;
+	width: 1.5rem;
+	height: 1.5rem;
 }
 
 footer {
@@ -27,15 +117,43 @@ footer {
 	color: white;
 }
 
-#level-menu .locked::after {
-	content: " (locked)";
+#overlay {
+	background: rgba(100, 100, 100, .5);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 0;
 }
-#level-menu .solved::after {
-	content: " (solved)";
+
+#overlay > div {
+	border: 1px solid black;
+	border-radius: 5px;
+	padding: 0.5em;
+	background: #fff;
+	position: fixed;
+	overflow: hidden;
+	height: 0;
+	top: -10em;
+	left: 30%;
+	max-width: 40%;
 }
-#level-menu .solved-1::after {
-	content: " (solved-1)";
+
+#overlay button {
+	float: right;
 }
-#level-menu .solved-2::after {
-	content: " (solved-2)";
+
+#overlay.visible {
+	height: auto;
+}
+
+#overlay.visible > div {
+	top: 5em;
+	height: auto;
+	transition: top 0.5s;
+}
+
+#info-box {
+	padding: 0.5em;
 }

@@ -57,31 +57,31 @@ LevelCollection.prototype.buildMenu = function () {
 	var solved = 0;
 	this.menuArea.innerHTML = this.levelGroups.map(function (group, i) {
 		if (solved < group.req || 0) {
-			return '<h2 class="locked">' + group.title + '</h2>';
+			return '<h2>' + group.title + ' ' + display.symbol('lock') + '</h2>';
 		}
 		if ('info' in group) {
 			this.infoEntry = group.info;
 		}
 		return '<h2>' + group.title + '</h2>' + group.levels.map(function (level, j) {
-			var best, status;
+			var best, symbol;
 			if (solved < level.req || 0) {
-				status = 'locked';
+				symbol = 'lock';
 			} else {
 				best = this.getScore(level.hash);
 				if (best === -1) {
-					status = '';
-				} else if (best < level.top || 0) {
-					status = 'solved-2';
+					symbol = '';
+				} else if (best < (level.top || Infinity)) {
+					symbol = 'star-2';
 				} else if (best === level.top) {
-					status = 'solved-1';
+					symbol = 'star';
 				} else {
-					status = 'solved';
+					symbol = 'ok';
 				}
 			}
-			if (status !== '' && status !== 'locked') {
+			if (symbol !== '' && symbol !== 'lock') {
 				solved++;
 			}
-			return '<button ' + (status === 'locked' ? 'disabled' : 'data-id="' + i + '|' + j + '"') + ' class="' + status + '">' + level.title + '</button>';
+			return '<button ' + (symbol === 'lock' ? 'disabled' : 'data-id="' + i + '|' + j + '"') + '>' + level.title + (symbol ? ' ' + display.symbol(symbol) : '') + '</button>';
 		}.bind(this)).join('');
 	}.bind(this)).join('');
 };
@@ -106,8 +106,8 @@ LevelCollection.prototype.show = function () {
 
 LevelCollection.prototype.startLevel = function (i, j) {
 	var levelData = this.levelGroups[i].levels[j], level;
-	level = new Level(levelData.title, levelData.map, function (result) {
-		this.endLevel(i, j, result);
+	level = new Level(levelData.title, levelData.map, function (result, callback) {
+		this.endLevel(i, j, result, callback);
 	}.bind(this));
 	this.menuArea.hidden = true;
 	level.show();
@@ -116,8 +116,14 @@ LevelCollection.prototype.startLevel = function (i, j) {
 	}
 };
 
-LevelCollection.prototype.endLevel = function (i, j, result) {
+LevelCollection.prototype.endLevel = function (i, j, result, callback) {
 	var hash, oldResult, top, str, update = false;
+
+	function done () {
+		callback();
+		this.show();
+	}
+
 	if (result > -1) {
 		hash = this.levelGroups[i].levels[j].hash;
 		oldResult = this.getScore(hash);
@@ -130,20 +136,23 @@ LevelCollection.prototype.endLevel = function (i, j, result) {
 			update = true;
 		} else {
 			str = 'Level solved again!';
-			if (result < oldResult) {
+			if (result > oldResult) {
+				str += ' But your previous solution was shorter!';
+			} else if (result < oldResult) {
 				str = 'Level solved again with a shorter solution than before!';
 				update = true;
 			}
-			if (result > top) {
+			if (result <= oldResult && result > top) {
 				str += ' But there is a shorter solution, try to find it!';
 			}
 		}
-		display.info(str, this.show.bind(this));
+		display.info(str, done.bind(this));
 		if (update) {
 			this.setScore(hash, result);
 			this.buildMenu();
 		}
 	} else {
+		callback();
 		this.show();
 	}
 };

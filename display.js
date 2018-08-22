@@ -1,16 +1,31 @@
+var overlay = document.getElementById('overlay'), infoCallback, codeMap = {
+	'<': 'code-left',
+	'>': 'code-right',
+	'_': 'code-go',
+	',': 'code-up',
+	'.': 'code-down',
+	')': 'code-repeat'
+};
+
 function htmlEscape (str) {
 	return str.replace(/</g, '&lt;');
 }
+
+document.getElementById('info-close').addEventListener('click', function () {
+	overlay.className = '';
+	if (infoCallback) {
+		infoCallback();
+	}
+});
 
 function displayTitle (title) {
 	document.getElementById('title').textContent = title;
 }
 
 function displayInfo (info, callback) {
-	alert(info);
-	if (callback) {
-		callback();
-	}
+	document.getElementById('info-box').innerHTML = info;
+	overlay.className = 'visible';
+	infoCallback = callback;
 }
 
 function displayError (error) {
@@ -18,14 +33,22 @@ function displayError (error) {
 }
 
 function displayMap (map) {
-	document.getElementById('map').textContent = map;
+	document.getElementById('map').innerHTML = '<table><tr>' + map.split('').map(function (c) {
+		if (c === '\n') {
+			return '</tr><tr>';
+		}
+		return '<td>' + htmlEscape(c) + '</td>';
+	}).join('') + '</tr></table>';
 }
 
 function displayCode (code, highlight) {
-	if (highlight === undefined) {
-		highlight = code.length;
-	}
-	document.getElementById('code').innerHTML = htmlEscape(code.slice(0, highlight)) + '<b>' + htmlEscape(code.charAt(highlight)) + '</b>' + htmlEscape(code.slice(highlight + 1));
+	document.getElementById('code').innerHTML = code.split('').map(function (c, i) {
+		return displaySymbol(codeMap[c] || 'code-' + c, (i === highlight) && 'highlight');
+	}).join('');
+}
+
+function displaySymbol (id, cls) {
+	return '<svg' + (cls ? ' class="' + cls + '"' : '') + '><use xlink:href="#' + id + '"/></svg>';
 }
 
 var display = {
@@ -33,5 +56,6 @@ var display = {
 	info: displayInfo,
 	error: displayError,
 	map: displayMap,
-	code: displayCode
+	code: displayCode,
+	symbol: displaySymbol
 };
