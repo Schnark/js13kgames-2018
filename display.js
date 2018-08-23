@@ -43,12 +43,15 @@ function displayMap (map) {
 
 function displayCode (code, highlight) {
 	document.getElementById('code').innerHTML = code.split('').map(function (c, i) {
+		if (c === ' ') {
+			return '<svg class="highlight"></svg>';
+		}
 		return displaySymbol(codeMap[c] || 'code-' + c, (i === highlight) && 'highlight');
 	}).join('');
 }
 
 function displaySymbol (id, cls) {
-	return '<svg' + (cls ? ' class="' + cls + '"' : '') + '><use xlink:href="#' + id + '"/></svg>';
+	return '<svg class="' + (cls ? cls + ' ' : '') + id + '"><use xlink:href="#' + id + '"/></svg>';
 }
 
 var display = {

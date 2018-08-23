@@ -17,8 +17,8 @@ onMuteUnmute();
 levels = [
 	{title: 'Tutorial', info: 0, levels: [
 		{title: 'Tutorial 1', map: 'Aa<', top: 3, info: 1},
-		{title: 'Tutorial 2', map: 'A      >a', top: 7, req: 1, info: 2}, //TODO top: 6 falls ) nicht zählt
-		{title: 'Tutorial 3', map: 'A<a\nB b', req: 2}
+		{title: 'Tutorial 2', map: 'A      >a', top: 7, req: 1, info: 2},
+		{title: 'Tutorial 3', map: 'A<a\nB b', req: 2, info: 3}
 	]},
 	{title: 'Foo', req: 3, levels: [
 		{title: 'Foo', map: 'A<a\nB b\nC c'}

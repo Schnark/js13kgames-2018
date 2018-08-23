@@ -96,6 +96,7 @@
 <use xlink:href="#code-x"/>
 </symbol>
 </svg>
+<div id="wrapper">
 <header>
 <button id="abort-button" class="button" hidden><svg><use xlink:href="#back"/></svg></button>
 <span>
@@ -110,17 +111,29 @@
 <div id="map"></div>
 <div id="code"></div>
 <div id="error"></div>
-<div id="code-input"></div>
-<button id="run-button" class="button"><svg><use xlink:href="#go"/></svg></button>
-<button id="cancel-button" class="button"><svg><use xlink:href="#cancel"/></svg></button>
-<button id="reset-button" class="button"><svg><use xlink:href="#reset"/></svg></button>
+<button id="insert-go" data-key="_" class="button"></button>
+<button id="insert-left" data-key="&lt;" class="button"></button>
+<button id="insert-right" data-key="&gt;" class="button"></button>
+<button id="insert-up" data-key="," class="button"></button>
+<button id="insert-down" data-key="." class="button"></button>
+<button id="insert-repeat" data-key="2)" class="button"></button>
 <br>
-<input id="pause-input" type="range" min="0" max="10" value="3" autocomplete="off"><!--Ugly Firefox behaviour prevented with autocomplete-->
+<button id="button-left" data-key="left">←</button>
+<button id="button-right" data-key="right">→</button>
+<button id="button-minus" data-key="minus">−</button>
+<button id="button-plus" data-key="plus">+</button>
+<button id="button-del" data-key="del">⌫</button>
+<br>
+<button id="run-button" class="button"><svg class="go"><use xlink:href="#go"/></svg></button>
+<button id="cancel-button" class="button"><svg class="cancel"><use xlink:href="#cancel"/></svg></button>
+<button id="reset-button" class="button"><svg class="reset"><use xlink:href="#reset"/></svg></button>
+<input id="pause-input" type="range" min="0" max="10" value="3">
 </div>
 <footer>
-<button id="reset-scores" autocomplete="off">Reset scores</button>
+<button id="reset-scores" autocomplete="off">Reset scores</button><!--Ugly Firefox behaviour prevented with autocomplete-->
 <button id="reset-info" autocomplete="off">Reset info</button>
 </footer>
+</div>
 <aside id="overlay">
 <div>
 <div id="info-box"></div>

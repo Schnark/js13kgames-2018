@@ -14,26 +14,36 @@ svg.highlight {
 	background-color: yellow;
 }
 
-#code-2,
-#code-3,
-#code-4,
-#code-5,
-#code-6,
-#code-7,
-#code-8,
-#code-9,
-#code-repeat {
+svg.lock,
+svg.cancel {
+	fill: red;
+}
+
+svg.reset,
+svg.star,
+svg.star-2,
+svg.code-2,
+svg.code-3,
+svg.code-4,
+svg.code-5,
+svg.code-6,
+svg.code-7,
+svg.code-8,
+svg.code-9,
+svg.code-repeat {
 	fill: orange;
 }
 
-#code-go,
-#code-left,
-#code-right {
+svg.ok,
+svg.go,
+svg.code-go,
+svg.code-left,
+svg.code-right {
 	fill: green;
 }
 
-#code-up,
-#code-down {
+svg.code-up,
+svg.code-down {
 	fill: blue;
 }
 
@@ -42,7 +52,7 @@ svg.highlight {
 	border: thin solid;
 	border-radius: 4px;
 	padding: 0.75rem;
-	margin: 0.75rem;
+	margin: 0.05rem;
 	height: 3rem;
 	width: 3rem;
 	cursor: pointer;
@@ -52,8 +62,26 @@ svg.highlight {
 }
 
 .button:disabled {
-	fill: #aaa;
 	cursor: default;
+}
+
+.button:disabled svg {
+	fill: #aaa;
+}
+
+#pause-input {
+	display: inline-block;
+	margin: 0.05em;
+	height: 3rem;
+	width: 6rem;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+#wrapper {
+	min-width: 20rem;
+	max-width: 45rem;
+	margin: auto;
 }
 
 header {
@@ -98,11 +126,32 @@ header > span {
 
 #level-menu,
 #level-wrapper {
-	margin: 1rem;
+	margin: 0.5rem;
+}
+
+#level-menu button {
+	font-weight: bold;
+	margin: 0.5rem;
+	background: #fff;
+	color: #000;
+	width: 6rem;
+	text-align: left;
+	height: 2.5rem;
+	border: solid;
+	padding: 0;
+	position: relative;
+}
+
+#level-menu button svg {
+	position: absolute;
+	top: 0;
+	right: 0;
 }
 
 #map table {
+	margin: auto;
 	border-collapse: collapse;
+	border: 1.5rem solid #000;
 }
 
 #map table td {
@@ -110,6 +159,18 @@ header > span {
 	padding: 0;
 	width: 1.5rem;
 	height: 1.5rem;
+}
+
+#code {
+	margin: 2rem 0;
+	border: solid thin;
+	padding: 0.1rem;
+	line-height: 0;
+}
+
+#error {
+	margin: 2rem 0;
+	color: red;
 }
 
 footer {
