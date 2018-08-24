@@ -37,7 +37,7 @@ function displayMap (map) {
 		if (c === '\n') {
 			return '</tr><tr>';
 		}
-		return '<td>' + htmlEscape(c) + '</td>';
+		return '<td>' + displayMapSymbol(c) + '</td>';
 	}).join('') + '</tr></table>';
 }
 
@@ -54,11 +54,16 @@ function displaySymbol (id, cls) {
 	return '<svg class="' + (cls ? cls + ' ' : '') + id + '"><use xlink:href="#' + id + '"/></svg>';
 }
 
+function displayMapSymbol (c) {
+	return htmlEscape(c);
+}
+
 var display = {
 	title: displayTitle,
 	info: displayInfo,
 	error: displayError,
 	map: displayMap,
 	code: displayCode,
-	symbol: displaySymbol
+	symbol: displaySymbol,
+	mapSymbol: displayMapSymbol
 };

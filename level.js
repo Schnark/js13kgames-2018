@@ -41,9 +41,20 @@ Level.prototype.show = function () {
 	codeInput.clear();
 };
 
+Level.prototype.showEditor = function () {
+	display.title('Editor');
+	this.bind();
+	this.wrapper.hidden = false;
+	this.abortButton.hidden = false;
+	editor.show(this);
+};
+
 Level.prototype.end = function (result) {
 	this.unbind();
 	this.onend(result, function () {
+		if (!this.title) {
+			editor.hide();
+		}
 		this.wrapper.hidden = true;
 		this.abortButton.hidden = true;
 	}.bind(this));

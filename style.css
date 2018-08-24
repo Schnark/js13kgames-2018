@@ -8,15 +8,15 @@ body {
 svg {
 	width: 1.5rem;
 	height: 1.5rem;
+	fill: currentColor;
 }
 
 svg.highlight {
 	background-color: yellow;
 }
 
-svg.lock,
 svg.cancel {
-	fill: red;
+	color: red;
 }
 
 svg.reset,
@@ -31,7 +31,7 @@ svg.code-7,
 svg.code-8,
 svg.code-9,
 svg.code-repeat {
-	fill: orange;
+	color: orange;
 }
 
 svg.ok,
@@ -39,12 +39,12 @@ svg.go,
 svg.code-go,
 svg.code-left,
 svg.code-right {
-	fill: green;
+	color: green;
 }
 
 svg.code-up,
 svg.code-down {
-	fill: blue;
+	color: blue;
 }
 
 .button:not([hidden]) {
@@ -66,16 +66,17 @@ svg.code-down {
 }
 
 .button:disabled svg {
-	fill: #aaa;
+	color: #aaa;
 }
 
 #pause-input {
 	display: inline-block;
 	margin: 0.05em;
 	height: 3rem;
-	width: 6rem;
+	width: 6.1rem;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
+	vertical-align: top;
 }
 
 #wrapper {
@@ -87,7 +88,6 @@ svg.code-down {
 header {
 	background-color: #48a;
 	color: white;
-	fill: white;
 	height: 3rem;
 }
 
@@ -95,6 +95,7 @@ header .button:not([hidden]) {
 	border: none;
 	margin: 0;
 	background-color: transparent;
+	color: #fff;
 }
 
 header button {
@@ -140,6 +141,12 @@ header > span {
 	border: solid;
 	padding: 0;
 	position: relative;
+	cursor: pointer;
+}
+
+#level-menu button:disabled {
+	color: #aaa;
+	cursor: default;
 }
 
 #level-menu button svg {

@@ -13,10 +13,13 @@
 <script src="run.js" defer></script>
 <script src="level.js" defer></script>
 <script src="level-collection.js" defer></script>
+<script src="editor.js" defer></script>
 <script src="game.js" defer></script>
 </head><body>
 <svg style="display:none">
-<!--Icons derived from Google's Material Design Icons-->
+<!--Icons derived from Google's Material Design Icons
+On first sight they look nice and are small,
+but on second thought I'll probably replace them by something else.-->
 <symbol id="back">
 <path d="M14.71,6.71L14.71,6.71c-0.39-0.39-1.02-0.39-1.41,0l-4.59,4.59c-0.39,0.39-0.39,1.02,0,1.41l4.59,4.59 c0.39,0.39,1.02,0.39,1.41,0l0,0c0.39-0.39,0.39-1.02,0-1.41L10.83,12l3.88-3.88C15.1,7.73,15.09,7.09,14.71,6.71z"/>
 </symbol>
@@ -47,6 +50,18 @@
 <symbol id="star-2">
 <use xlink:href="#star"/><use x="6" xlink:href="#star"/>
 </symbol>
+<symbol id="left">
+<path d="M19,11H7.83l4.88-4.88c0.39-0.39,0.39-1.03,0-1.42l0,0c-0.39-0.39-1.02-0.39-1.41,0l-6.59,6.59 c-0.39,0.39-0.39,1.02,0,1.41l6.59,6.59c0.39,0.39,1.02,0.39,1.41,0l0,0c0.39-0.39,0.39-1.02,0-1.41L7.83,13H19c0.55,0,1-0.45,1-1 v0C20,11.45,19.55,11,19,11z"/>
+</symbol>
+<symbol id="right">
+<path d="M5,13h11.17l-4.88,4.88c-0.39,0.39-0.39,1.03,0,1.42l0,0c0.39,0.39,1.02,0.39,1.41,0l6.59-6.59c0.39-0.39,0.39-1.02,0-1.41 L12.71,4.7c-0.39-0.39-1.02-0.39-1.41,0l0,0c-0.39,0.39-0.39,1.02,0,1.41L16.17,11H5c-0.55,0-1,0.45-1,1v0C4,12.55,4.45,13,5,13z"/>
+</symbol>
+<symbol id="minus">
+<path d="M18,13H6c-0.55,0-1-0.45-1-1v0c0-0.55,0.45-1,1-1h12c0.55,0,1,0.45,1,1v0C19,12.55,18.55,13,18,13z"/></symbol>
+<symbol id="plus">
+<path d="M18,13h-5v5c0,0.55-0.45,1-1,1h0c-0.55,0-1-0.45-1-1v-5H6c-0.55,0-1-0.45-1-1v0c0-0.55,0.45-1,1-1h5V6c0-0.55,0.45-1,1-1h0 c0.55,0,1,0.45,1,1v5h5c0.55,0,1,0.45,1,1v0C19,12.55,18.55,13,18,13z"/></symbol>
+<symbol id="del">
+<path d="M22,3H7C6.31,3,5.77,3.35,5.41,3.88l-5.04,7.57c-0.22,0.34-0.22,0.77,0,1.11l5.04,7.56C5.77,20.64,6.31,21,7,21h15 c1.1,0,2-0.9,2-2V5C24,3.9,23.1,3,22,3z M18.3,16.3L18.3,16.3c-0.39,0.39-1.02,0.39-1.41,0L14,13.41l-2.89,2.89 c-0.39,0.39-1.02,0.39-1.41,0h0c-0.39-0.39-0.39-1.02,0-1.41L12.59,12L9.7,9.11c-0.39-0.39-0.39-1.02,0-1.41l0,0 c0.39-0.39,1.02-0.39,1.41,0L14,10.59l2.89-2.89c0.39-0.39,1.02-0.39,1.41,0v0c0.39,0.39,0.39,1.02,0,1.41L15.41,12l2.89,2.89 C18.68,15.27,18.68,15.91,18.3,16.3z"/></symbol>
 <symbol id="code-x">
 <path d="M19.29,12.7c-0.39-0.39-1.02-0.39-1.41,0L16,14.59L14.11,12.7c-0.39-0.39-1.02-0.39-1.41,0c-0.39,0.39-0.39,1.02,0,1.41 L14.59,16l-1.89,1.89c-0.39,0.39-0.39,1.02,0,1.41c0.39,0.39,1.02,0.39,1.41,0L16,17.41l1.89,1.89c0.39,0.39,1.02,0.39,1.41,0 c0.39-0.39,0.39-1.02,0-1.41L17.41,16l1.89-1.89C19.68,13.73,19.68,13.09,19.29,12.7z"/>
 </symbol>
@@ -60,7 +75,8 @@
 <symbol id="code-down">
 <path d="M11,5v11.17l-4.88-4.88c-0.39-0.39-1.03-0.39-1.42,0l0,0c-0.39,0.39-0.39,1.02,0,1.41l6.59,6.59 c0.39,0.39,1.02,0.39,1.41,0l6.59-6.59c0.39-0.39,0.39-1.02,0-1.41l0,0c-0.39-0.39-1.02-0.39-1.41,0L13,16.17V5c0-0.55-0.45-1-1-1 h0C11.45,4,11,4.45,11,5z"/></symbol>
 <symbol id="code-go">
-<path d="M5,13h11.17l-4.88,4.88c-0.39,0.39-0.39,1.03,0,1.42l0,0c0.39,0.39,1.02,0.39,1.41,0l6.59-6.59c0.39-0.39,0.39-1.02,0-1.41 L12.71,4.7c-0.39-0.39-1.02-0.39-1.41,0l0,0c-0.39,0.39-0.39,1.02,0,1.41L16.17,11H5c-0.55,0-1,0.45-1,1v0C4,12.55,4.45,13,5,13z"/></symbol>
+<use xlink:href="#right"/>
+</symbol>
 <symbol id="code-repeat">
 <path d="M14.15,19.15l-1.79-1.79c-0.2-0.2-0.2-0.51,0-0.71l1.79-1.79 C14.46,14.54,15,14.76,15,15.21v-3.59C15,19.24,14.46,19.46,14.15,19.15z M15,16H15.3c2.35,0,4.45-1.71,4.68-4.05C20.24,9.27,18.13,7,15.5,7 H13c-0.55,0-1-0.45-1-1v0c0-0.55,0.45-1,1-1H15.5c3.86,0,6.96,3.4,6.44,7.36C21.52,15.64,18.57,18,15.27,18H15"/></symbol>
 <symbol id="code-2">
@@ -109,6 +125,12 @@
 </div>
 <div id="level-wrapper" hidden>
 <div id="map"></div>
+<div id="editor-area" hidden>
+<div id="radio-input"></div>
+<button id="done-button">Run level</button>
+<input id="width-input" type="number" min="1" max="10">x<input id="height-input" type="number" min="1" max="10">
+</div>
+<div id="run-area">
 <div id="code"></div>
 <div id="error"></div>
 <button id="insert-go" data-key="_" class="button"></button>
@@ -118,16 +140,17 @@
 <button id="insert-down" data-key="." class="button"></button>
 <button id="insert-repeat" data-key="2)" class="button"></button>
 <br>
-<button id="button-left" data-key="left">←</button>
-<button id="button-right" data-key="right">→</button>
-<button id="button-minus" data-key="minus">−</button>
-<button id="button-plus" data-key="plus">+</button>
-<button id="button-del" data-key="del">⌫</button>
+<button id="button-left" class="button" data-key="left"><svg><use xlink:href="#left"/></svg></button>
+<button id="button-right" class="button" data-key="right"><svg><use xlink:href="#right"/></svg></button>
+<button id="button-minus" class="button" data-key="minus"><svg><use xlink:href="#minus"/></svg></button>
+<button id="button-plus" class="button" data-key="plus"><svg><use xlink:href="#plus"/></svg></button>
+<button id="button-del" class="button" data-key="del"><svg><use xlink:href="#del"/></svg></button>
 <br>
 <button id="run-button" class="button"><svg class="go"><use xlink:href="#go"/></svg></button>
 <button id="cancel-button" class="button"><svg class="cancel"><use xlink:href="#cancel"/></svg></button>
 <button id="reset-button" class="button"><svg class="reset"><use xlink:href="#reset"/></svg></button>
 <input id="pause-input" type="range" min="0" max="10" value="3">
+</div>
 </div>
 <footer>
 <button id="reset-scores" autocomplete="off">Reset scores</button><!--Ugly Firefox behaviour prevented with autocomplete-->

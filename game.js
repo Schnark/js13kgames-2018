@@ -1,6 +1,7 @@
-var codeInput, soundCheckbox, levels;
+var codeInput, editor, soundCheckbox, levels;
 
 codeInput = new CodeInput();
+editor = new Editor(' ');
 
 soundCheckbox = document.getElementById('sound-checkbox');
 
@@ -22,6 +23,9 @@ levels = [
 	]},
 	{title: 'Foo', req: 3, levels: [
 		{title: 'Foo', map: 'A<a\nB b\nC c'}
+	]},
+	{title: 'Editor', req: 3, editor: true, levels: [
+		{title: 'Start editor'}
 	]}
 ];
 

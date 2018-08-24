@@ -16,8 +16,10 @@ function LevelCollection (levelGroups) {
 	var i, j;
 	this.levelGroups = levelGroups;
 	for (i = 0; i < this.levelGroups.length; i++) {
-		for (j = 0; j < this.levelGroups[i].levels.length; j++) {
-			this.levelGroups[i].levels[j].hash = generateHash(this.levelGroups[i].levels[j].map);
+		if (!this.levelGroups[i].editor) {
+			for (j = 0; j < this.levelGroups[i].levels.length; j++) {
+				this.levelGroups[i].levels[j].hash = generateHash(this.levelGroups[i].levels[j].map);
+			}
 		}
 	}
 	this.menuArea = document.getElementById('level-menu');
@@ -57,14 +59,16 @@ LevelCollection.prototype.buildMenu = function () {
 	var solved = 0;
 	this.menuArea.innerHTML = this.levelGroups.map(function (group, i) {
 		if (solved < group.req || 0) {
-			return '<h2>' + group.title + ' ' + display.symbol('lock') + '</h2>';
+			return group.editor ? '' : '<h2>' + group.title + ' ' + display.symbol('lock') + '</h2>';
 		}
 		if ('info' in group) {
 			this.infoEntry = group.info;
 		}
 		return '<h2>' + group.title + '</h2>' + group.levels.map(function (level, j) {
-			var best, symbol;
-			if (solved < level.req || 0) {
+			var best, symbol, id;
+			if (group.editor) {
+				symbol = '';
+			} else if (solved < level.req || 0) {
 				symbol = 'lock';
 			} else {
 				best = this.getScore(level.hash);
@@ -81,7 +85,12 @@ LevelCollection.prototype.buildMenu = function () {
 			if (symbol !== '' && symbol !== 'lock') {
 				solved++;
 			}
-			return '<button ' + (symbol === 'lock' ? 'disabled' : 'data-id="' + i + '|' + j + '"') + '>' + level.title + (symbol ? ' ' + display.symbol(symbol) : '') + '</button>';
+			if (symbol === 'lock') {
+				id = 'disabled';
+			} else {
+				id = group.editor ? 'data-id="editor"' : 'data-id="' + i + '|' + j + '"';
+			}
+			return '<button ' + id + '>' + level.title + (symbol ? ' ' + display.symbol(symbol) : '') + '</button>';
 		}.bind(this)).join('');
 	}.bind(this)).join('');
 };
@@ -92,6 +101,10 @@ LevelCollection.prototype.onclick = function (e) {
 		return;
 	}
 	this.initSound();
+	if (id === 'editor') {
+		this.showEditor();
+		return;
+	}
 	id = id.split('|');
 	this.startLevel(id[0], id[1]);
 };
@@ -114,6 +127,19 @@ LevelCollection.prototype.startLevel = function (i, j) {
 	if ('info' in levelData) {
 		info.show(levelData.info);
 	}
+};
+
+LevelCollection.prototype.showEditor = function () {
+	var level = new Level(false, false, function (result, callback) {
+		callback();
+		if (result !== -1) {
+			//TODO
+			console.log(JSON.stringify(result));
+			this.show();
+		}
+	}.bind(this));
+	this.menuArea.hidden = true;
+	level.showEditor();
 };
 
 LevelCollection.prototype.endLevel = function (i, j, result, callback) {
