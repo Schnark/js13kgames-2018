@@ -124,15 +124,14 @@ but on second thought I'll probably replace them by something else.-->
 <div id="level-menu">
 </div>
 <div id="level-wrapper" hidden>
-<div id="map"></div>
 <div id="editor-area" hidden>
+Size: <input id="width-input" type="number" min="1" max="10">x<input id="height-input" type="number" min="1" max="10">
 <div id="radio-input"></div>
 <button id="done-button">Run level</button>
-<input id="width-input" type="number" min="1" max="10">x<input id="height-input" type="number" min="1" max="10">
 </div>
+<div id="map"></div>
 <div id="run-area">
 <div id="code"></div>
-<div id="error"></div>
 <button id="insert-go" data-key="_" class="button"></button>
 <button id="insert-left" data-key="&lt;" class="button"></button>
 <button id="insert-right" data-key="&gt;" class="button"></button>
@@ -150,6 +149,7 @@ but on second thought I'll probably replace them by something else.-->
 <button id="cancel-button" class="button"><svg class="cancel"><use xlink:href="#cancel"/></svg></button>
 <button id="reset-button" class="button"><svg class="reset"><use xlink:href="#reset"/></svg></button>
 <input id="pause-input" type="range" min="0" max="10" value="3">
+<div id="error"></div>
 </div>
 </div>
 <footer>

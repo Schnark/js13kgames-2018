@@ -1,3 +1,4 @@
+/*General*/
 html,
 body {
 	font-family: sans-serif;
@@ -5,6 +6,51 @@ body {
 	padding: 0;
 }
 
+#wrapper {
+	min-width: 20rem;
+	max-width: 45rem;
+	margin: auto;
+}
+
+header {
+	background-color: #48a;
+	color: white;
+	height: 3rem;
+}
+
+header button {
+	float: left;
+}
+
+header h1 {
+	margin: 0 3rem;
+	font-size: 150%;
+	line-height: 2;
+}
+
+header > span {
+	float: right;
+	padding-right: 1em;
+}
+
+#sound-checkbox {
+	display: none;
+}
+
+#sound-checkbox:checked ~ label .off {
+	display: none;
+}
+
+#sound-checkbox:not(:checked) ~ label .on {
+	display: none;
+}
+
+#level-menu,
+#level-wrapper {
+	margin: 0.5rem;
+}
+
+/*SVG*/
 svg {
 	width: 1.5rem;
 	height: 1.5rem;
@@ -47,6 +93,7 @@ svg.code-down {
 	color: blue;
 }
 
+/*Buttons*/
 .button:not([hidden]) {
 	display: inline-block;
 	border: thin solid;
@@ -69,28 +116,6 @@ svg.code-down {
 	color: #aaa;
 }
 
-#pause-input {
-	display: inline-block;
-	margin: 0.05em;
-	height: 3rem;
-	width: 6.1rem;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	vertical-align: top;
-}
-
-#wrapper {
-	min-width: 20rem;
-	max-width: 45rem;
-	margin: auto;
-}
-
-header {
-	background-color: #48a;
-	color: white;
-	height: 3rem;
-}
-
 header .button:not([hidden]) {
 	border: none;
 	margin: 0;
@@ -98,38 +123,7 @@ header .button:not([hidden]) {
 	color: #fff;
 }
 
-header button {
-	float: left;
-}
-
-header h1 {
-	margin: 0 3rem;
-	font-size: 150%;
-	line-height: 2;
-}
-
-header > span {
-	float: right;
-	padding-right: 1em;
-}
-
-#sound-checkbox {
-	display: none;
-}
-
-#sound-checkbox:checked ~ label .off {
-	display: none;
-}
-
-#sound-checkbox:not(:checked) ~ label .on {
-	display: none;
-}
-
-#level-menu,
-#level-wrapper {
-	margin: 0.5rem;
-}
-
+/*Level Selection*/
 #level-menu button {
 	font-weight: bold;
 	margin: 0.5rem;
@@ -155,6 +149,7 @@ header > span {
 	right: 0;
 }
 
+/*Level Screen*/
 #map table {
 	margin: auto;
 	border-collapse: collapse;
@@ -180,11 +175,22 @@ header > span {
 	color: red;
 }
 
-footer {
-	background-color: black;
-	color: white;
+#pause-input {
+	display: inline-block;
+	margin: 0.05em;
+	height: 3rem;
+	width: 6.1rem;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	vertical-align: top;
 }
 
+/*Level Editor*/
+input[type="number"] {
+	width: 2em;
+}
+
+/*Infobox*/
 #overlay {
 	background: rgba(100, 100, 100, .5);
 	position: fixed;
@@ -224,4 +230,10 @@ footer {
 
 #info-box {
 	padding: 0.5em;
+}
+
+/*Temporary*/
+footer {
+	background-color: black;
+	color: white;
 }

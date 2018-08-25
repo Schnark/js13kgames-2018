@@ -29,10 +29,13 @@ function Editor (mapStr) {
 }
 
 Editor.isValid = function (map) {
+	//Checks for external data only
 	map = map.split('\n');
+	//height
 	if (map.length > 10) {
 		return false;
 	}
+	//width
 	if (map[0].length === 0 || map[0].length > 10) {
 		return false;
 	}
@@ -44,13 +47,27 @@ Editor.isValid = function (map) {
 		return false;
 	}
 	map = map.join('');
+	//only allowed elements
 	if (/[^a-eA-Ev<>^# ]/.test(map)) {
 		return false;
 	}
+	//Checks for both internal and external data
+	//exactly one starting point
 	if (map.replace(/[^v<>^]/g, '').length !== 1) {
 		return false;
 	}
-	//TODO
+	//at least one item
+	if (!/[a-e]/.test(map)) {
+		return false;
+	}
+	//items and targets match
+	if (
+		map.replace(/[^a-e]/g, '').split('').sort().join('') !==
+		map.replace(/[^A-E]/g, '').split('').sort().join('').toLowerCase()
+	) {
+		return false;
+	}
+	//accept anything else (even if it might be unsolvable)
 	return true;
 };
 
@@ -79,7 +96,7 @@ Editor.prototype.show = function (level) {
 Editor.prototype.hide = function () {
 	this.unbind();
 	this.editorArea.hidden = true;
-	this.runArea.hidden = true;
+	this.runArea.hidden = false;
 };
 
 Editor.prototype.getStr = function () {

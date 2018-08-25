@@ -1,7 +1,6 @@
-var codeInput, editor, soundCheckbox, levels;
+var codeInput, editor, soundCheckbox, levels, bonus;
 
 codeInput = new CodeInput();
-editor = new Editor(' ');
 
 soundCheckbox = document.getElementById('sound-checkbox');
 
@@ -29,16 +28,22 @@ levels = [
 	]}
 ];
 
-/*
+
 if (location.hash) {
-	levels.push({
+	bonus = decodeURIComponent(location.hash.slice(1));
+	if (!Editor.isValid(bonus)) {
+		bonus = false;
+	}
+}
+
+if (bonus) {
+	levels.splice(-1, 0, {
 		title: 'Bonus', levels: [
-			{title: 'Bonus', map: decodeURIComponent(location.hash.slice(1))} //TODO
+			{title: 'Bonus', map: bonus}
 		]
 	});
 }
-*/
-
+editor = new Editor(bonus || ' ');
 levels = new LevelCollection(levels);
 
 levels.init();

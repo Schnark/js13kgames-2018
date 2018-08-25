@@ -22,7 +22,7 @@ Map.prototype.setType = function (x, y, type) {
 };
 
 Map.prototype.allDone = function () {
-	return !/[A-Z]/.test(this.grid.map(function (line) {
+	return !/[A-E]/.test(this.grid.map(function (line) {
 		return line.join('');
 	}).join(''));
 };

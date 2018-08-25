@@ -66,7 +66,7 @@ LevelCollection.prototype.buildMenu = function () {
 		}
 		return '<h2>' + group.title + '</h2>' + group.levels.map(function (level, j) {
 			var best, symbol, id;
-			if (group.editor) {
+			if (!level.map) {
 				symbol = '';
 			} else if (solved < level.req || 0) {
 				symbol = 'lock';
@@ -88,7 +88,7 @@ LevelCollection.prototype.buildMenu = function () {
 			if (symbol === 'lock') {
 				id = 'disabled';
 			} else {
-				id = group.editor ? 'data-id="editor"' : 'data-id="' + i + '|' + j + '"';
+				id = level.map ? 'data-id="' + i + '|' + j + '"' : 'data-id="editor"';
 			}
 			return '<button ' + id + '>' + level.title + (symbol ? ' ' + display.symbol(symbol) : '') + '</button>';
 		}.bind(this)).join('');
@@ -133,10 +133,16 @@ LevelCollection.prototype.showEditor = function () {
 	var level = new Level(false, false, function (result, callback) {
 		callback();
 		if (result !== -1) {
-			//TODO
 			console.log(JSON.stringify(result));
-			this.show();
+			location = '#' + encodeURIComponent(result);
+			this.levelGroups[this.levelGroups.length - 1].levels[1] = {
+				title: 'New level',
+				map: result,
+				hash: generateHash(result)
+			};
+			this.buildMenu();
 		}
+		this.show();
 	}.bind(this));
 	this.menuArea.hidden = true;
 	level.showEditor();

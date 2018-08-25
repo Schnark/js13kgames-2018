@@ -71,7 +71,7 @@ Level.prototype.onStart = function () {
 		this.resetButton.disabled = false;
 		this.abortButton.disabled = false;
 		if (done) {
-			this.end(input.length); //TODO
+			this.end(input.length);
 		}
 	}.bind(this));
 	this.onUpdatePause();

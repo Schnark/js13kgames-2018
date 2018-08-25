@@ -48,7 +48,7 @@ Robot.prototype.take = function () {
 	}
 	pos = this.getNextPos();
 	type = this.map.getType(pos[0], pos[1]);
-	if (['a', 'b', 'c'].indexOf(type) === -1) {
+	if (['a', 'b', 'c', 'd', 'e'].indexOf(type) === -1) {
 		throw new Error('Nothing to take!');
 	}
 	this.item = type;
@@ -63,12 +63,12 @@ Robot.prototype.drop = function () {
 	}
 	pos = this.getNextPos();
 	type = this.map.getType(pos[0], pos[1]);
-	if (type !== this.item.toUpperCase()) {
+	if (type !== ' ' && type !== this.item.toUpperCase()) {
 		throw new Error('Can\'t drop it here!');
 	}
+	this.map.setType(pos[0], pos[1], type === ' ' ? this.item : '*');
 	this.item = '';
-	this.map.setType(pos[0], pos[1], '*');
-	sound.play('drop');
+	sound.play(type === ' ' ? 'drop' : 'drop-final');
 };
 
 Robot.prototype.step = function () {
