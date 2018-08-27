@@ -101,7 +101,7 @@ Level.prototype.onReset = function () {
 
 Level.prototype.onUpdatePause = function () {
 	if (this.run) {
-		this.run.setPause(5 * Math.pow(2, 10 - this.pauseInput.value));
+		this.run.setPause(5 * Math.pow(2, 10 - this.pauseInput.value)); //TODO make sure 2.5 * Math.pow(2, 10 - max) ms is long enough for one sound
 	}
 };
 

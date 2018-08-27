@@ -130,22 +130,27 @@ LevelCollection.prototype.startLevel = function (i, j) {
 };
 
 LevelCollection.prototype.showEditor = function () {
-	var level = new Level(false, false, function (result, callback) {
+	var levelData, level = new Level(false, false, function (result, callback) {
 		callback();
 		if (result !== -1) {
-			console.log(JSON.stringify(result));
-			location = '#' + encodeURIComponent(result);
+			location = '#' + result;
 			this.levelGroups[this.levelGroups.length - 1].levels[1] = {
-				title: 'New level',
+				title: 'Play level',
 				map: result,
 				hash: generateHash(result)
 			};
 			this.buildMenu();
+			this.startLevel(this.levelGroups.length - 1, 1);
+		} else {
+			this.show();
 		}
-		this.show();
 	}.bind(this));
 	this.menuArea.hidden = true;
 	level.showEditor();
+	levelData = this.levelGroups[this.levelGroups.length - 1].levels[0];
+	if ('info' in levelData) {
+		info.show(levelData.info);
+	}
 };
 
 LevelCollection.prototype.endLevel = function (i, j, result, callback) {

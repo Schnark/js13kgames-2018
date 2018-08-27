@@ -1,17 +1,18 @@
-var overlay = document.getElementById('overlay'), infoCallback, codeMap = {
-	'<': 'code-left',
-	'>': 'code-right',
-	'_': 'code-go',
-	',': 'code-up',
-	'.': 'code-down',
-	')': 'code-repeat'
-};
+var overlay = document.getElementById('overlay'),
+	closeButton = document.getElementById('info-close'),
+	infoCallback,
+	codeMap = {
+		'<': 'code-left',
+		'>': 'code-right',
+		'_': 'code-go',
+		',': 'code-up',
+		'.': 'code-down',
+		')': 'code-repeat'
+	};
 
-function htmlEscape (str) {
-	return str.replace(/</g, '&lt;');
-}
+closeButton.disabled = false; //Firefox can persist disabled state and can get confused by the level buttons that sometimes exist and sometimes don't
 
-document.getElementById('info-close').addEventListener('click', function () {
+closeButton.addEventListener('click', function () {
 	overlay.className = '';
 	if (infoCallback) {
 		infoCallback();
@@ -26,6 +27,7 @@ function displayInfo (info, callback) {
 	document.getElementById('info-box').innerHTML = info;
 	overlay.className = 'visible';
 	infoCallback = callback;
+	closeButton.focus();
 }
 
 function displayError (error) {
@@ -34,7 +36,7 @@ function displayError (error) {
 
 function displayMap (map) {
 	document.getElementById('map').innerHTML = '<table><tr>' + map.split('').map(function (c) {
-		if (c === '\n') {
+		if (c === '-') {
 			return '</tr><tr>';
 		}
 		return '<td>' + displayMapSymbol(c) + '</td>';
@@ -55,7 +57,16 @@ function displaySymbol (id, cls) {
 }
 
 function displayMapSymbol (c) {
-	return htmlEscape(c);
+	if (c === '_') {
+		return '';
+	}
+	if (/[0-3]/.test(c)) {
+		return displaySymbol('map-r' + c);
+	}
+	if (/[a-e]/.test(c)) {
+		return displaySymbol('map-item-' + c);
+	}
+	return displaySymbol('map-tile-' + c.toLowerCase());
 }
 
 var display = {

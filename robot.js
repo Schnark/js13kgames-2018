@@ -28,8 +28,15 @@ Robot.prototype.getNextPos = function () {
 Robot.prototype.move = function () {
 	var newPos = this.getNextPos(), type;
 	type = this.map.getType(newPos[0], newPos[1]);
-	if (type !== ' ') {
-		throw new Error('Crashed into "' + type + '"!');
+	if (type !== '_') {
+		if (/[A-EG]/.test(type)) {
+			type = 'target';
+		} else if (/[a-e]/.test(type)) {
+			type = 'item';
+		} else {
+			type = 'wall';
+		}
+		throw 'Crashed into ' + type + '!';
 	}
 	this.x = newPos[0];
 	this.y = newPos[1];
@@ -44,31 +51,31 @@ Robot.prototype.turn = function (dir) {
 Robot.prototype.take = function () {
 	var pos, type;
 	if (this.item) {
-		throw new Error('Can\'t take two things!');
+		throw 'Can\'t take two items!';
 	}
 	pos = this.getNextPos();
 	type = this.map.getType(pos[0], pos[1]);
-	if (['a', 'b', 'c', 'd', 'e'].indexOf(type) === -1) {
-		throw new Error('Nothing to take!');
+	if (!/[a-e]/.test(type)) {
+		throw 'Nothing to take!';
 	}
 	this.item = type;
-	this.map.setType(pos[0], pos[1], ' ');
+	this.map.setType(pos[0], pos[1], '_');
 	sound.play('take');
 };
 
 Robot.prototype.drop = function () {
 	var pos, type;
 	if (!this.item) {
-		throw new Error('Nothing to drop!');
+		throw 'Nothing to drop!';
 	}
 	pos = this.getNextPos();
 	type = this.map.getType(pos[0], pos[1]);
-	if (type !== ' ' && type !== this.item.toUpperCase()) {
-		throw new Error('Can\'t drop it here!');
+	if (type !== '_' && type !== this.item.toUpperCase()) {
+		throw 'Can\'t drop item here!';
 	}
-	this.map.setType(pos[0], pos[1], type === ' ' ? this.item : '*');
+	this.map.setType(pos[0], pos[1], type === '_' ? this.item : 'G');
 	this.item = '';
-	sound.play(type === ' ' ? 'drop' : 'drop-final');
+	sound.play(type === '_' ? 'drop' : 'drop-final');
 };
 
 Robot.prototype.step = function () {

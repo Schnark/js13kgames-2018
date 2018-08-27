@@ -111,6 +111,58 @@ but on second thought I'll probably replace them by something else.-->
 <path d="M7,10h-2c-1.1,0-2,0.9-2,2v2 c0,1.1,0.9,2,2,2h2v2h-3c-0.55,0-1,0.45-1,1v0c0,0.55,0.45,1,1,1h3c1.1,0,2-0.9,2-2V12C9,10.9,8.1,10,7,10z M7,14h-2V12h2V14z"/>
 <use xlink:href="#code-x"/>
 </symbol>
+
+<symbol id="map-item-a">
+<circle cx="12" cy="12" r="6" fill="#f00"/>
+</symbol>
+<symbol id="map-item-b">
+<circle cx="12" cy="12" r="6" fill="#00f"/>
+</symbol>
+<symbol id="map-item-c">
+<circle cx="12" cy="12" r="6" fill="#0f0"/>
+</symbol>
+<symbol id="map-item-d">
+<circle cx="12" cy="12" r="6" fill="#ff0"/>
+</symbol>
+<symbol id="map-item-e">
+<circle cx="12" cy="12" r="6" fill="#f0f"/>
+</symbol>
+<symbol id="map-tile-a">
+<rect x="0" y="0" width="24" height="24" fill="#f00"/>
+</symbol>
+<symbol id="map-tile-b">
+<rect x="0" y="0" width="24" height="24" fill="#00f"/>
+</symbol>
+<symbol id="map-tile-c">
+<rect x="0" y="0" width="24" height="24" fill="#0f0"/>
+</symbol>
+<symbol id="map-tile-d">
+<rect x="0" y="0" width="24" height="24" fill="#ff0"/>
+</symbol>
+<symbol id="map-tile-e">
+<rect x="0" y="0" width="24" height="24" fill="#f0f"/>
+</symbol>
+<symbol id="map-tile-f">
+<rect x="0" y="0" width="24" height="24" fill="#000"/>
+</symbol>
+<symbol id="map-tile-g">
+<rect x="0" y="0" width="24" height="24" fill="#aaa"/>
+</symbol>
+<symbol id="map-r0">
+<rect x="3" y="9" width="18" height="9" fill="#000"/>
+<rect x="6" y="9" width="12" height="12" fill="#aaa"/>
+<circle cx="12" cy="9" r="6" fill="#aaa"/>
+<path d="M9,12L12,9L15,12" fill="none" stroke="#000"/>
+</symbol>
+<symbol id="map-r1">
+<use xlink:href="#map-r0" transform="rotate(90,12,12)"/>
+</symbol>
+<symbol id="map-r2">
+<use xlink:href="#map-r0" transform="rotate(180,12,12)"/>
+</symbol>
+<symbol id="map-r3">
+<use xlink:href="#map-r0" transform="rotate(270,12,12)"/>
+</symbol>
 </svg>
 <div id="wrapper">
 <header>
@@ -126,8 +178,8 @@ but on second thought I'll probably replace them by something else.-->
 <div id="level-wrapper" hidden>
 <div id="editor-area" hidden>
 Size: <input id="width-input" type="number" min="1" max="10">x<input id="height-input" type="number" min="1" max="10">
+<button id="play-button">Play level</button>
 <div id="radio-input"></div>
-<button id="done-button">Run level</button>
 </div>
 <div id="map"></div>
 <div id="run-area">
@@ -152,15 +204,15 @@ Size: <input id="width-input" type="number" min="1" max="10">x<input id="height-
 <div id="error"></div>
 </div>
 </div>
-<footer>
-<button id="reset-scores" autocomplete="off">Reset scores</button><!--Ugly Firefox behaviour prevented with autocomplete-->
+<footer><!--TODO temporary-->
+<button id="reset-scores" autocomplete="off">Reset scores</button>
 <button id="reset-info" autocomplete="off">Reset info</button>
 </footer>
 </div>
 <aside id="overlay">
 <div>
 <div id="info-box"></div>
-<button id="info-close" autocomplete="off">OK</button>
+<button id="info-close">OK</button>
 </div>
 </aside>
 </body></html>

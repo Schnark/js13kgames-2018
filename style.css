@@ -26,6 +26,7 @@ header h1 {
 	margin: 0 3rem;
 	font-size: 150%;
 	line-height: 2;
+	text-align: center;
 }
 
 header > span {
@@ -129,7 +130,7 @@ header .button:not([hidden]) {
 	margin: 0.5rem;
 	background: #fff;
 	color: #000;
-	width: 6rem;
+	width: 8rem;
 	text-align: left;
 	height: 2.5rem;
 	border: solid;
@@ -161,6 +162,7 @@ header .button:not([hidden]) {
 	padding: 0;
 	width: 1.5rem;
 	height: 1.5rem;
+	line-height: 0;
 }
 
 #code {
@@ -188,6 +190,33 @@ header .button:not([hidden]) {
 /*Level Editor*/
 input[type="number"] {
 	width: 2em;
+}
+
+#play-button {
+	float: right;
+}
+
+#radio-input svg {
+	border: 1px solid black;
+	cursor: pointer;
+	margin: 5px;
+}
+
+#radio-input input {
+	display: none;
+}
+
+#radio-input :checked ~ svg {
+	outline: solid red;
+	cursor: default;
+}
+
+#radio-input [value="A"] ~ svg {
+	outline-color: #0ff;
+}
+
+#editor-area:not([hidden]) ~ #map td {
+	cursor: pointer;
 }
 
 /*Infobox*/
@@ -230,9 +259,20 @@ input[type="number"] {
 
 #info-box {
 	padding: 0.5em;
+	max-height: 70vh;
+	overflow: auto;
 }
 
-/*Temporary*/
+kbd {
+	border: thin solid #aaa;
+	border-radius: 3px;
+	white-space: nowrap;
+	height: 1.5rem;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+/*TODO: Temporary*/
 footer {
 	background-color: black;
 	color: white;

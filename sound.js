@@ -9,6 +9,7 @@ var muted = false, sound = {
 		if (muted) {
 			return;
 		}
+		//move, turn, take, drop, drop-final, error, win
 		//TODO
 		console.log(sound);
 	}

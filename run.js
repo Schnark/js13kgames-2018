@@ -22,28 +22,37 @@ Run.prototype.showCode = function () {
 };
 
 Run.prototype.step = function () {
-	try {
-		this.pos = this.robot.step();
-	} catch (e) {
-		this.showError(e);
-		this.running = false;
-	}
-	if (this.pos >= this.codeStr.length) {
-		this.running = false;
-		if (this.map.allDone()) {
-			this.done = true;
+	if (!this.running) {
+		if (this.end === 1) {
 			sound.play('win');
-		} else {
+		} else if (this.end === 2) {
 			this.showError('Not all done!');
 		}
-	}
-	this.map.draw(this.robot);
-	this.showCode();
-	if (!this.running) {
 		this.onend(this.done);
-	} else {
-		this.timeoutId = setTimeout(this.step.bind(this), this.pause);
+		return;
 	}
+	if (this.stepTypeShow) {
+		this.showCode();
+	} else {
+		try {
+			this.pos = this.robot.step();
+		} catch (e) {
+			this.showError(e);
+			this.running = false;
+		}
+		if (this.pos >= this.codeStr.length) {
+			this.running = false;
+			if (this.map.allDone()) {
+				this.done = true;
+				this.end = 1;
+			} else {
+				this.end = 2;
+			}
+		}
+		this.map.draw(this.robot);
+	}
+	this.stepTypeShow = !this.stepTypeShow;
+	this.timeoutId = setTimeout(this.step.bind(this), this.pause / 2);
 };
 
 Run.prototype.cancel = function () {
@@ -59,7 +68,8 @@ Run.prototype.setPause = function (pause) {
 
 Run.prototype.run = function () {
 	this.showError('');
+	this.end = 0;
 	this.map.draw(this.robot);
-	this.showCode();
+	this.stepTypeShow = true;
 	this.step();
 };
