@@ -32,7 +32,7 @@ Editor.isValid = function (map) {
 	//Checks for external data only
 	map = map.split('-');
 	//height
-	if (map.length > 10) { //TODO decide on max size and set it also in html
+	if (map.length > 10) {
 		return false;
 	}
 	//width

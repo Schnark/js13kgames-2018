@@ -1,27 +1,6 @@
-function generateHash (str) {
-	//copied from QUnit
-	var hash = 0, i, hex;
-	for (i = 0; i < str.length; i++) {
-		hash = (hash << 5) - hash + str.charCodeAt(i);
-		hash |= 0;
-	}
-	hex = (0x100000000 + hash).toString(16);
-	if (hex.length < 8) {
-		hex = '0000000' + hex;
-	}
-	return hex.slice(-8);
-}
-
 function LevelCollection (levelGroups) {
 	var i, j;
 	this.levelGroups = levelGroups;
-	for (i = 0; i < this.levelGroups.length; i++) {
-		if (!this.levelGroups[i].editor) {
-			for (j = 0; j < this.levelGroups[i].levels.length; j++) {
-				this.levelGroups[i].levels[j].hash = generateHash(this.levelGroups[i].levels[j].map);
-			}
-		}
-	}
 	this.menuArea = document.getElementById('level-menu');
 	this.menuArea.addEventListener('click', this.onclick.bind(this));
 	this.scores = storage.get('scores', {});
@@ -40,12 +19,12 @@ LevelCollection.prototype.initSound = function () {
 	}
 };
 
-LevelCollection.prototype.getScore = function (hash) {
-	return this.scores[hash] || -1;
+LevelCollection.prototype.getScore = function (map) {
+	return this.scores[map] || -1;
 };
 
-LevelCollection.prototype.setScore = function (hash, score) {
-	this.scores[hash] = score;
+LevelCollection.prototype.setScore = function (map, score) {
+	this.scores[map] = score;
 	storage.set('scores', this.scores);
 };
 
@@ -71,7 +50,7 @@ LevelCollection.prototype.buildMenu = function () {
 			} else if (solved < level.req || 0) {
 				symbol = 'lock';
 			} else {
-				best = this.getScore(level.hash);
+				best = this.getScore(level.map);
 				if (best === -1) {
 					symbol = '';
 				} else if (best < (level.top || Infinity)) {
@@ -136,8 +115,7 @@ LevelCollection.prototype.showEditor = function () {
 			location = '#' + result;
 			this.levelGroups[this.levelGroups.length - 1].levels[1] = {
 				title: 'Play level',
-				map: result,
-				hash: generateHash(result)
+				map: result
 			};
 			this.buildMenu();
 			this.startLevel(this.levelGroups.length - 1, 1);
@@ -154,7 +132,7 @@ LevelCollection.prototype.showEditor = function () {
 };
 
 LevelCollection.prototype.endLevel = function (i, j, result, callback) {
-	var hash, oldResult, top, str, update = false;
+	var map, oldResult, top, str, update = false;
 
 	function done () {
 		callback();
@@ -162,8 +140,8 @@ LevelCollection.prototype.endLevel = function (i, j, result, callback) {
 	}
 
 	if (result > -1) {
-		hash = this.levelGroups[i].levels[j].hash;
-		oldResult = this.getScore(hash);
+		map = this.levelGroups[i].levels[j].map;
+		oldResult = this.getScore(map);
 		top = this.levelGroups[i].levels[j].top || Infinity;
 		if (oldResult === -1) {
 			str = 'Level solved!';
@@ -185,7 +163,7 @@ LevelCollection.prototype.endLevel = function (i, j, result, callback) {
 		}
 		display.info(str, done.bind(this));
 		if (update) {
-			this.setScore(hash, result);
+			this.setScore(map, result);
 			this.buildMenu();
 		}
 	} else {

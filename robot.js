@@ -11,6 +11,7 @@ Robot.prototype.getPos = function () {
 };
 
 Robot.prototype.setCode = function (code) {
+	this.origCode = code;
 	this.code = code;
 	this.codePos = 0;
 	this.stack = [];
@@ -51,7 +52,7 @@ Robot.prototype.turn = function (dir) {
 Robot.prototype.take = function () {
 	var pos, type;
 	if (this.item) {
-		throw 'Can\'t take two items!';
+		throw 'Can’t take two items!';
 	}
 	pos = this.getNextPos();
 	type = this.map.getType(pos[0], pos[1]);
@@ -71,7 +72,7 @@ Robot.prototype.drop = function () {
 	pos = this.getNextPos();
 	type = this.map.getType(pos[0], pos[1]);
 	if (type !== '_' && type !== this.item.toUpperCase()) {
-		throw 'Can\'t drop item here!';
+		throw 'Can’t drop item here!';
 	}
 	this.map.setType(pos[0], pos[1], type === '_' ? this.item : 'G');
 	this.item = '';
@@ -93,7 +94,11 @@ Robot.prototype.step = function () {
 			this.codePos = oldPos - 1; //codePos will be incremented below, so subtrcat 1
 		}
 		break;
-	case '1': this.stack.push(-1); break;
+	case '1':
+		//restore original number of repetitions
+		this.code = this.code.slice(0, this.codePos) + this.origCode.charAt(this.codePos) + this.code.slice(this.codePos + 1);
+		this.stack.push(-1);
+		break;
 	default:
 		this.code = this.code.slice(0, this.codePos) + String(Number(token) - 1) + this.code.slice(this.codePos + 1);
 		this.stack.push(this.codePos);
