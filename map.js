@@ -1,3 +1,4 @@
+/*global display*/
 function Map (str) {
 	this.grid = str.split('-').map(function (line, y) {
 		var match = /(.*)([0-3])(.*)/.exec(line);

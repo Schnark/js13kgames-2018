@@ -1,3 +1,4 @@
+/*global Robot, Map, display, sound*/
 function Run (mapStr, codeStr, onend) {
 	this.map = new Map(mapStr);
 	this.robot = new Robot(this.map);
@@ -22,37 +23,33 @@ Run.prototype.showCode = function () {
 };
 
 Run.prototype.step = function () {
-	if (!this.running) {
-		if (this.end === 1) {
+	if (this.pos >= this.codeStr.length) {
+		this.running = false;
+		if (this.map.allDone()) {
+			this.done = true;
 			sound.play('win');
-		} else if (this.end === 2) {
+		} else {
 			this.showError('Not all done!');
 		}
-		this.onend(this.done);
-		return;
-	}
-	if (this.stepTypeShow) {
-		this.showCode();
 	} else {
-		try {
-			this.pos = this.robot.step();
-		} catch (e) {
-			this.showError(e);
-			this.running = false;
-		}
-		if (this.pos >= this.codeStr.length) {
-			this.running = false;
-			if (this.map.allDone()) {
-				this.done = true;
-				this.end = 1;
-			} else {
-				this.end = 2;
+		if (this.stepTypeShow) {
+			this.showCode();
+		} else {
+			try {
+				this.pos = this.robot.step();
+			} catch (e) {
+				this.showError(e);
+				this.running = false;
 			}
+			this.map.draw(this.robot);
 		}
-		this.map.draw(this.robot);
 	}
-	this.stepTypeShow = !this.stepTypeShow;
-	this.timeoutId = setTimeout(this.step.bind(this), this.pause / 2);
+	if (this.running) {
+		this.stepTypeShow = !this.stepTypeShow;
+		this.timeoutId = setTimeout(this.step.bind(this), this.pause / 2);
+	} else {
+		this.onend(this.done);
+	}
 };
 
 Run.prototype.cancel = function () {
@@ -68,7 +65,6 @@ Run.prototype.setPause = function (pause) {
 
 Run.prototype.run = function () {
 	this.showError('');
-	this.end = 0;
 	this.map.draw(this.robot);
 	this.stepTypeShow = true;
 	this.step();

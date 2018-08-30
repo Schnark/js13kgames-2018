@@ -1,3 +1,4 @@
+/*global display*/
 function CodeInput () {
 	this.insertLeft = document.getElementById('insert-left');
 	this.insertRight = document.getElementById('insert-right');
@@ -31,6 +32,8 @@ function CodeInput () {
 	this.delButton.addEventListener('click', this.onClick.bind(this));
 	this.plusButton.addEventListener('click', this.onClick.bind(this));
 	this.minusButton.addEventListener('click', this.onClick.bind(this));
+
+	document.body.addEventListener('keypress', this.onKey.bind(this));
 
 	this.clear();
 }
@@ -79,6 +82,18 @@ CodeInput.prototype.disable = function () {
 	this.delButton.disabled = true;
 	this.plusButton.disabled = true;
 	this.minusButton.disabled = true;
+};
+
+CodeInput.prototype.pos1 = function () {
+	this.post = this.pre + this.post;
+	this.pre = '';
+	this.update();
+};
+
+CodeInput.prototype.end = function () {
+	this.pre = this.pre + this.post;
+	this.post = '';
+	this.update();
 };
 
 CodeInput.prototype.left = function () {
@@ -150,17 +165,65 @@ CodeInput.prototype.del = function () {
 	this.update();
 };
 
-CodeInput.prototype.onClick = function (e) {
-	var key = e.currentTarget.dataset.key;
-	if (!key) {
-		return;
-	}
+CodeInput.prototype.handleKey = function (key) {
 	switch (key) {
+	case 'pos1': this.pos1(); break;
+	case 'end': this.end(); break;
 	case 'left': this.left(); break;
 	case 'right': this.right(); break;
 	case 'del': this.del(); break;
 	case 'plus': this.plus(); break;
 	case 'minus': this.minus(); break;
 	default: this.insert(key.slice(0, 1), key.slice(1));
+	}
+};
+
+CodeInput.prototype.onClick = function (e) {
+	var key = e.currentTarget.dataset.key;
+	if (!key) {
+		return;
+	}
+	this.handleKey(key);
+};
+
+CodeInput.prototype.onKey = function (e) {
+	var c, key, el;
+	if (this.insertLeft.disabled) {
+		return;
+	}
+	c = e.charCode;
+	switch (c) {
+	case 95: key = '_'; break;
+	case 60: key = '<'; break;
+	case 62: key = '>'; break;
+	case 45: key = 'minus'; break;
+	case 43: key = 'plus'; break;
+	default:
+		if (c >= 50 && c <= 57) {
+			key = String(c - 48) + ')';
+		}
+	}
+	if (!c) {
+		switch (e.keyCode) {
+		case 38: key = ','; break;
+		case 40: key = '.'; break;
+		case 37: key = 'left'; break;
+		case 39: key = 'right'; break;
+		case 36: key = 'pos1'; break;
+		case 35: key = 'end'; break;
+		case 8: key = 'del'; break;
+		case 13: key = 'start';
+		}
+	}
+	if (key) {
+		e.preventDefault();
+		if (key === 'start') {
+			document.getElementById('run-button').click();
+		} else {
+			el = document.querySelector('[data-key="' + key + '"]');
+			if (!el || !el.disabled) {
+				this.handleKey(key);
+			}
+		}
 	}
 };

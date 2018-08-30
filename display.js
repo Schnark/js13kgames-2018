@@ -8,9 +8,10 @@ var overlay = document.getElementById('overlay'),
 		',': 'code-up',
 		'.': 'code-down',
 		')': 'code-repeat'
-	};
+	}, display;
 
-closeButton.disabled = false; //Firefox can persist disabled state and can get confused by the level buttons that sometimes exist and sometimes don't
+//Firefox can persist disabled state and can get confused by the level buttons that sometimes exist and sometimes don't
+closeButton.disabled = false;
 
 closeButton.addEventListener('click', function () {
 	overlay.className = '';
@@ -34,13 +35,8 @@ function displayError (error) {
 	document.getElementById('error').textContent = error;
 }
 
-function displayMap (map) {
-	document.getElementById('map').innerHTML = '<table><tr>' + map.split('').map(function (c) {
-		if (c === '-') {
-			return '</tr><tr>';
-		}
-		return '<td>' + displayMapSymbol(c) + '</td>';
-	}).join('') + '</tr></table>';
+function displaySymbol (id, cls) {
+	return '<svg class="' + (cls ? cls + ' ' : '') + id + '"><use xlink:href="#' + id + '"/></svg>';
 }
 
 function displayCode (code, highlight) {
@@ -50,10 +46,6 @@ function displayCode (code, highlight) {
 		}
 		return displaySymbol(codeMap[c] || 'code-' + c, (i === highlight) && 'highlight');
 	}).join('');
-}
-
-function displaySymbol (id, cls) {
-	return '<svg class="' + (cls ? cls + ' ' : '') + id + '"><use xlink:href="#' + id + '"/></svg>';
 }
 
 function displayMapSymbol (c) {
@@ -69,12 +61,21 @@ function displayMapSymbol (c) {
 	return displaySymbol('map-tile-' + c.toLowerCase());
 }
 
-var display = {
+function displayMap (map) {
+	document.getElementById('map').innerHTML = '<table><tr>' + map.split('').map(function (c) {
+		if (c === '-') {
+			return '</tr><tr>';
+		}
+		return '<td>' + displayMapSymbol(c) + '</td>';
+	}).join('') + '</tr></table>';
+}
+
+display = {
 	title: displayTitle,
 	info: displayInfo,
 	error: displayError,
-	map: displayMap,
-	code: displayCode,
 	symbol: displaySymbol,
-	mapSymbol: displayMapSymbol
+	code: displayCode,
+	mapSymbol: displayMapSymbol,
+	map: displayMap
 };

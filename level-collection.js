@@ -1,5 +1,5 @@
+/*global Level, display, sound, info, storage*/
 function LevelCollection (levelGroups) {
-	var i, j;
 	this.levelGroups = levelGroups;
 	this.menuArea = document.getElementById('level-menu');
 	this.menuArea.addEventListener('click', this.onclick.bind(this));
@@ -26,12 +26,6 @@ LevelCollection.prototype.getScore = function (map) {
 LevelCollection.prototype.setScore = function (map, score) {
 	this.scores[map] = score;
 	storage.set('scores', this.scores);
-};
-
-LevelCollection.prototype.clearScores = function () {
-	this.scores = {};
-	storage.remove('scores');
-	this.buildMenu();
 };
 
 LevelCollection.prototype.buildMenu = function () {

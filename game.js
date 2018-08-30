@@ -1,3 +1,4 @@
+/*global CodeInput, Editor, LevelCollection, sound, storage*/
 var codeInput, editor, soundCheckbox, levels, bonus;
 
 codeInput = new CodeInput();
@@ -42,7 +43,6 @@ levels = [
 	]}
 ];
 
-
 if (location.hash) {
 	bonus = location.hash.slice(1);
 	if (!Editor.isValid(bonus)) {
@@ -61,8 +61,3 @@ editor = new Editor(bonus || '_');
 levels = new LevelCollection(levels);
 
 levels.init();
-
-document.getElementById('reset-scores').addEventListener('click', levels.clearScores.bind(levels));
-document.getElementById('reset-info').addEventListener('click', function () {
-	storage.remove('info');
-});

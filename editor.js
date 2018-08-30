@@ -1,3 +1,4 @@
+/*global display*/
 function Editor (mapStr) {
 	this.grid = mapStr.split('-').map(function (line) {
 		return line.split('');

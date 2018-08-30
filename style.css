@@ -69,8 +69,6 @@ svg.cancel {
 }
 
 svg.reset,
-svg.star,
-svg.star-2,
 svg.code-2,
 svg.code-3,
 svg.code-4,
@@ -81,6 +79,11 @@ svg.code-8,
 svg.code-9,
 svg.code-repeat {
 	color: #a60;
+}
+
+svg.star,
+svg.star-2 {
+	color: #d80;
 }
 
 svg.ok,
@@ -149,7 +152,7 @@ header .button:not([hidden]) {
 
 #level-menu button svg {
 	position: absolute;
-	top: 0;
+	top: 3px;
 	right: 0;
 }
 
@@ -244,8 +247,10 @@ input[type="number"] {
 	overflow: hidden;
 	height: 0;
 	top: -10rem;
-	left: 30%;
-	max-width: 40%;
+	left: 0;
+	right: 0;
+	margin: auto;
+	max-width: 30rem;
 }
 
 #overlay button {
@@ -259,7 +264,7 @@ input[type="number"] {
 #overlay.visible > div {
 	top: 5rem;
 	height: auto;
-	transition: top 0.5s;
+	transition: top 0.3s;
 }
 
 #info-box {
@@ -275,10 +280,4 @@ kbd {
 	height: 1.5rem;
 	display: inline-block;
 	vertical-align: middle;
-}
-
-/*TODO: Temporary*/
-footer {
-	background: #000;
-	color: #fff;
 }

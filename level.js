@@ -1,3 +1,4 @@
+/*global Run, codeInput, display, editor*/
 function Level (title, mapStr, onend) {
 	this.title = title;
 	this.mapStr = mapStr;
@@ -68,10 +69,12 @@ Level.prototype.onStart = function () {
 	var input = codeInput.get();
 	this.run = new Run(this.mapStr, input, function (done) {
 		this.cancelButton.disabled = true;
-		this.resetButton.disabled = false;
 		this.abortButton.disabled = false;
 		if (done) {
 			this.end(input.length);
+		} else {
+			this.resetButton.disabled = false;
+			this.resetButton.focus();
 		}
 	}.bind(this));
 	this.onUpdatePause();
@@ -96,13 +99,12 @@ Level.prototype.onReset = function () {
 	this.runButton.disabled = false;
 	this.cancelButton.disabled = true;
 	this.resetButton.disabled = true;
+	this.resetButton.blur();
 	codeInput.enable();
 };
 
 Level.prototype.onUpdatePause = function () {
 	if (this.run) {
-		this.run.setPause(5 * Math.pow(2, 10 - this.pauseInput.value)); //TODO make sure 2.5 * Math.pow(2, 10 - max) ms is long enough for one sound
+		this.run.setPause(250 * Math.pow(2, 4 - this.pauseInput.value / 2));
 	}
 };
-
-

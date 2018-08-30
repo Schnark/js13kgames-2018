@@ -1,3 +1,4 @@
+/*global sound*/
 function Robot (map) {
 	var start = map.getStart();
 	this.x = start[0];

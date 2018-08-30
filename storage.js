@@ -15,15 +15,14 @@ function set (key, value) {
 	}
 }
 
-function remove (key) {
+/*function remove (key) {
 	try {
 		localStorage.removeItem(prefix + key);
 	} catch (e) {
 	}
-}
+}*/
 
 storage = {
 	get: get,
-	set: set,
-	remove: remove
+	set: set
 };
