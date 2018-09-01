@@ -50,19 +50,19 @@ sound = {
 		}
 		switch (sound) {
 		case 'move':
-			playSound(100, -10, 15, 15, 1, 2);
+			playSound(100, -10, 15, 15, 0.7, 2);
 			break;
 		case 'turn':
-			playSound(260, -60, 15, 15, 0.5, 2);
+			playSound(260, -60, 15, 15, 0.4, 2);
 			break;
 		case 'take':
-			playSound(220, 15, 15, 15, 0.4, 2);
+			playSound(220, 15, 15, 15, 0.3, 2);
 			break;
 		case 'drop':
-			playSound(440, -15, 15, 15, 0.4, 2);
+			playSound(440, -15, 15, 15, 0.3, 2);
 			break;
 		case 'drop-final':
-			playSound(510, 0, 15, 20, 0.1);
+			playSound(510, 0, 15, 20, 0.05);
 			break;
 		case 'error':
 			playSound(440, -15, 15, 15, 0.5);

@@ -83,7 +83,7 @@ LevelCollection.prototype.onclick = function (e) {
 };
 
 LevelCollection.prototype.show = function () {
-	display.title('Levels');
+	display.title('Robot Coder');
 	this.menuArea.hidden = false;
 	if (this.infoEntry > -1) {
 		info.show(this.infoEntry);

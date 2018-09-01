@@ -28,8 +28,9 @@ levels = [
 		{title: 'Simple start 4', map: 'B__C-_bc_-1ad_-A__D', req: 6},
 		{title: 'Bar', map: 'FFFAFFF-F__2__F-F__a__F-D_dFb_B-F__c__F-F_____F-FFFCFFF', req: 6},
 		{title: 'Baz', map: 'FFFAFFF-F__2__F-F__b__F-D_aFc_B-F__d__F-F_____F-FFFCFFF', req: 7},
-		{title: 'Go round', map: 'b___d-_FDF_-1BFC_-_FAF_-a___c', req: 7},
-		{title: 'Go round again', map: 'a___b-_FDF_-_BFC_-_FAF_-c_0_d', req: 8}
+		{title: 'Go round 1', map: 'b___d-_FDF_-1BFC_-_FAF_-a___c', req: 7},
+		{title: 'Go round 2', map: 'a___b-_FDF_-_BFC_-_FAF_-c_0_d', req: 8},
+		{title: 'Clock', map: '__FFAFFF__-_FF_a_FFF_-FFDd_bBCFF-FFC____c_F-F_c_0___dD-Bb_____a_F-F_a____AFF-FFADd_bBFF-_FFF_c_FF_-__FFFCFF__', top: 18, req: 10}
 	]},
 	{title: 'JS13K', req: 4, levels: [
 		{title: 'J', map: 'A____-___F_-___F_-_FaF_-__F1_-_____'},
