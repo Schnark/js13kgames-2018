@@ -29,7 +29,7 @@ Run.prototype.step = function () {
 			this.done = true;
 			sound.play('win');
 		} else {
-			this.showError('Not all done!');
+			this.showError('Not all targets reached!');
 		}
 	} else {
 		if (this.stepTypeShow) {

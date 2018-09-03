@@ -58,7 +58,7 @@ Robot.prototype.take = function () {
 	pos = this.getNextPos();
 	type = this.map.getType(pos[0], pos[1]);
 	if (!/[a-e]/.test(type)) {
-		throw 'Nothing to take!';
+		throw 'No item to take!';
 	}
 	this.item = type;
 	this.map.setType(pos[0], pos[1], '_');
@@ -68,7 +68,7 @@ Robot.prototype.take = function () {
 Robot.prototype.drop = function () {
 	var pos, type;
 	if (!this.item) {
-		throw 'Nothing to drop!';
+		throw 'No item to drop!';
 	}
 	pos = this.getNextPos();
 	type = this.map.getType(pos[0], pos[1]);

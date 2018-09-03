@@ -83,6 +83,7 @@ LevelCollection.prototype.onclick = function (e) {
 };
 
 LevelCollection.prototype.show = function () {
+	document.documentElement.scrollTop = 0;
 	display.title('Robot Coder');
 	this.menuArea.hidden = false;
 	if (this.infoEntry > -1) {
@@ -107,6 +108,8 @@ LevelCollection.prototype.showEditor = function () {
 		callback();
 		if (result !== -1) {
 			location = '#' + result;
+			//The following assumes that the editor is in the last levelGroup.
+			//This is true here, but could be changed in the config.
 			this.levelGroups[this.levelGroups.length - 1].levels[1] = {
 				title: 'Play level',
 				map: result

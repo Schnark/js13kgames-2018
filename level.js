@@ -34,6 +34,7 @@ Level.prototype.unbind = function () {
 };
 
 Level.prototype.show = function () {
+	document.documentElement.scrollTop = 0;
 	display.title(this.title);
 	this.onReset();
 	this.bind();
@@ -43,11 +44,13 @@ Level.prototype.show = function () {
 };
 
 Level.prototype.showEditor = function () {
+	document.documentElement.scrollTop = 0;
 	display.title('Editor');
 	this.bind();
 	this.wrapper.hidden = false;
 	this.abortButton.hidden = false;
 	editor.show(this);
+	codeInput.disable();
 };
 
 Level.prototype.end = function (result) {
