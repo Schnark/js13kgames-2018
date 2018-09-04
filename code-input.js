@@ -33,7 +33,7 @@ function CodeInput () {
 	this.plusButton.addEventListener('click', this.onClick.bind(this));
 	this.minusButton.addEventListener('click', this.onClick.bind(this));
 
-	document.body.addEventListener('keypress', this.onKey.bind(this));
+	document.body.addEventListener('keydown', this.onKey.bind(this));
 
 	this.clear();
 }
@@ -191,28 +191,23 @@ CodeInput.prototype.onKey = function (e) {
 	if (this.insertLeft.disabled) {
 		return;
 	}
-	c = e.charCode;
+	c = e.key;
 	switch (c) {
-	case 95: key = '_'; break;
-	case 60: key = '<'; break;
-	case 62: key = '>'; break;
-	case 45: key = 'minus'; break;
-	case 43: key = 'plus'; break;
+	case 'Enter': key = 'start'; break;
+	case 'ArrowLeft': key = 'left'; break;
+	case 'ArrowDown': key = '.'; break;
+	case 'ArrowUp': key = ','; break;
+	case 'ArrowRight': key = 'right'; break;
+	case 'End': key = 'end'; break;
+	case 'Home': key = 'pos1'; break;
+	case 'Backspace': key = 'del'; break;
+	case '+': key = 'plus'; break;
+	case '-': key = 'minus'; break;
 	default:
-		if (c >= 50 && c <= 57) {
-			key = String(c - 48) + ')';
-		}
-	}
-	if (!c) {
-		switch (e.keyCode) {
-		case 38: key = ','; break;
-		case 40: key = '.'; break;
-		case 37: key = 'left'; break;
-		case 39: key = 'right'; break;
-		case 36: key = 'pos1'; break;
-		case 35: key = 'end'; break;
-		case 8: key = 'del'; break;
-		case 13: key = 'start';
+		if (/^[2-9]$/.test(c)) {
+			key = c + ')';
+		} else if (/^[_<>]$/.test(c)) {
+			key = c;
 		}
 	}
 	if (key) {

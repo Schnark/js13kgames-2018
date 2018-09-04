@@ -166,10 +166,10 @@
 </svg>
 <div id="wrapper">
 <header>
-<button id="abort-button" class="button" hidden><svg><use xlink:href="#back"/></svg></button>
+<button id="abort-button" class="button" hidden title="Back"><svg><use xlink:href="#back"/></svg></button>
 <span>
 <input type="checkbox" id="sound-checkbox">
-<label for="sound-checkbox" class="button"><svg class="on"><use xlink:href="#note-on"/></svg><svg class="off"><use xlink:href="#note-off"/></svg></label>
+<label for="sound-checkbox" class="button"><svg class="on" title="Sound off"><use xlink:href="#note-on"/></svg><svg class="off" title="Sound on"><use xlink:href="#note-off"/></svg></label>
 </span>
 <h1 id="title"></h1>
 </header>
@@ -184,22 +184,22 @@ Size: <input id="width-input" type="number" min="1" max="10">x<input id="height-
 <div id="map"></div>
 <div id="run-area">
 <div id="code"></div>
-<button id="insert-go" data-key="_" class="button"></button>
-<button id="insert-left" data-key="&lt;" class="button"></button>
-<button id="insert-right" data-key="&gt;" class="button"></button>
-<button id="insert-up" data-key="," class="button"></button>
-<button id="insert-down" data-key="." class="button"></button>
-<button id="insert-repeat" data-key="2)" class="button"></button>
+<button id="insert-go" data-key="_" class="button" title="Advance one step"></button>
+<button id="insert-left" data-key="&lt;" class="button" title="Turn left"></button>
+<button id="insert-right" data-key="&gt;" class="button" title="Turn right"></button>
+<button id="insert-up" data-key="," class="button" title="Take item"></button>
+<button id="insert-down" data-key="." class="button" title="Drop item"></button>
+<button id="insert-repeat" data-key="2)" class="button" title="Repeat code"></button>
 <br>
-<button id="button-left" class="button" data-key="left"><svg><use xlink:href="#left"/></svg></button>
-<button id="button-right" class="button" data-key="right"><svg><use xlink:href="#right"/></svg></button>
-<button id="button-minus" class="button" data-key="minus"><svg><use xlink:href="#minus"/></svg></button>
-<button id="button-plus" class="button" data-key="plus"><svg><use xlink:href="#plus"/></svg></button>
-<button id="button-del" class="button" data-key="del"><svg><use xlink:href="#del"/></svg></button>
+<button id="button-left" class="button" data-key="left" title="Cursor left"><svg><use xlink:href="#left"/></svg></button>
+<button id="button-right" class="button" data-key="right" title="Cursor right"><svg><use xlink:href="#right"/></svg></button>
+<button id="button-minus" class="button" data-key="minus" title="Decrement number of repetitions"><svg><use xlink:href="#minus"/></svg></button>
+<button id="button-plus" class="button" data-key="plus" title="Increment number of repetitions"><svg><use xlink:href="#plus"/></svg></button>
+<button id="button-del" class="button" data-key="del" title="Delete char"><svg><use xlink:href="#del"/></svg></button>
 <br>
-<button id="run-button" class="button"><svg class="go"><use xlink:href="#go"/></svg></button>
-<button id="cancel-button" class="button"><svg class="cancel"><use xlink:href="#cancel"/></svg></button>
-<button id="reset-button" class="button"><svg class="reset"><use xlink:href="#reset"/></svg></button>
+<button id="run-button" class="button" title="Start robot"><svg class="go"><use xlink:href="#go"/></svg></button>
+<button id="cancel-button" class="button" title="Abort robot"><svg class="cancel"><use xlink:href="#cancel"/></svg></button>
+<button id="reset-button" class="button" title="Reset robot"><svg class="reset"><use xlink:href="#reset"/></svg></button>
 <input id="pause-input" type="range" min="0" max="8" value="4" autocomplete="off">
 <div id="error"></div>
 </div>
