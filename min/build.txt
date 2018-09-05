@@ -1,0 +1,13 @@
+combined.js: Concatenate all JS files, wrap them: `(echo "(function(){" && cat storage.js display.js sound.js info.js code-input.js map.js robot.js run.js level.js level-collection.js editor.js game.js && echo "})();") > min/combined.js`
+min.js: Minify combined.js
+min.css: Minify ../style.css
+min.html: Minify ../index.html, replace style and scripts by empty tags
+index.html: Embed min.js and min.css into min.html
+f.png: Copy of ../f.png
+game.zip: ZIP index.html and f.png: `zip -9 game.zip index.html f.png`
+
+Reset scores:
+localStorage.removeItem('schnark-js13k2018-scores')
+
+Reset info:
+localStorage.removeItem('schnark-js13k2018-info')
